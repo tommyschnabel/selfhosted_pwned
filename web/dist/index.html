@@ -1,11 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Getting Started</title>
-        <script src="https://unpkg.com/lodash@4.17.20"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pwned Password Checker</title>
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
+        <div class="container">
+            <h1>Pwned Password Checker</h1>
+            <p>Passwords never leave your browser, only a hash!</p>
+
+            <form id="checkerForm">
+                <div class="form-group">
+                    <div class="password-input-wrapper">
+                        <input type="password" id="password" autocomplete="off"
+                            placeholder="Enter SHA1 hash or password to check..." />
+                        <button type="button" class="toggle-password" id="togglePassword" title="Show/hide password">
+                            <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-check">Check Password</button>
+                    <button type="reset" class="btn-clear">Clear</button>
+                </div>
+            </form>
+
+            <div class="loading" id="loading">
+                <span class="spinner"></span>Checking...
+            </div>
+
+            <div class="result" id="result"></div>
+        </div>
+
         <script src="main.js"></script>
     </body>
 </html>

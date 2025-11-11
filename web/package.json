@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bundle": "npx webpack"
+    "bundle": "npx webpack",
+    "watch": "npx webpack watch"
   },
   "keywords": [],
   "author": "",

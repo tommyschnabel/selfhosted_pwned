@@ -20,6 +20,23 @@ type CheckResponse struct {
 	Error  string `json:"error,omitempty"`
 }
 
+func main() {
+	port := flag.String("port", "8080", "Port to listen on")
+	flag.Parse()
+
+	http.HandleFunc("/api/check/password", handleCheckPassword)
+	http.HandleFunc("/api/check/hash", handleCheckHash)
+
+	fs := http.FileServer(http.Dir("./dist"))
+	http.Handle("/", fs)
+
+	addr := fmt.Sprintf(":%s", *port)
+	log.Printf("Server starting on %s", addr)
+	if err := http.ListenAndServe(addr, nil); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
+}
+
 func handleCheckPassword(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -114,20 +131,6 @@ func isValidSHA1(hash string) bool {
 		}
 	}
 	return true
-}
-
-func main() {
-	port := flag.String("port", "8080", "Port to listen on")
-	flag.Parse()
-
-	http.HandleFunc("/api/check/password", handleCheckPassword)
-	http.HandleFunc("/api/check/hash", handleCheckHash)
-
-	addr := fmt.Sprintf(":%s", *port)
-	log.Printf("Server starting on %s", addr)
-	if err := http.ListenAndServe(addr, nil); err != nil {
-		log.Fatalf("Server failed to start: %v", err)
-	}
 }
 
 // hashPassword generates SHA-1 hash of the input string
