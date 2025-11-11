@@ -37,6 +37,39 @@ This application uses the [HaveIBeenPwned Range API](https://haveibeenpwned.com/
 ### Compromised Password
 ![Compromised password result](./screenshots/compromised.png)
 
+## Running from GHCR
+
+Pre-built images are available at `ghcr.io/tommyschnabel/selfhosted_pwned` and support both `amd64` and `arm64/v8` architectures.
+
+### Using Docker Run
+
+```bash
+docker run -d -p 8080:8080 --name pwned ghcr.io/tommyschnabel/selfhosted_pwned
+```
+
+Then visit `http://localhost:8080` in your browser.
+
+### Using Docker Compose
+
+Create a `docker-compose.yml` file:
+
+```yaml
+version: '3.8'
+
+services:
+  pwned:
+    image: ghcr.io/tommyschnabel/selfhosted_pwned:latest
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+```
+
+Then run:
+
+```bash
+docker-compose up -d
+```
+
 ## Building the Docker Image
 
 ### Prerequisites
@@ -56,30 +89,6 @@ docker run -d -p 8080:8080 --name pwned selfhosted-pwned
 ```
 
 Then visit `http://localhost:8080` in your browser.
-
-### Build Details
-
-The Dockerfile uses a multi-stage build process:
-
-1. **Web Stage**: Builds the frontend using Node.js
-   - Installs dependencies
-   - Bundles the JavaScript with Webpack
-   
-2. **Server Stage**: Builds the backend using Go
-   - Compiles the Go server binary
-   
-3. **Final Stage**: Creates a lean Debian image
-   - Includes CA certificates for HTTPS API calls
-   - Copies built web assets and server binary
-   - Runs the server on port 8080
-
-### Custom Port
-
-To run on a different port:
-
-```bash
-docker run -d -p 9000:8080 --name pwned selfhosted-pwned /server -port 9000
-```
 
 ## Architecture
 
