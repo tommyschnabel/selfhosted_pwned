@@ -4,7 +4,7 @@ COPY web /web
 WORKDIR /web
 RUN npm install && npm run bundle
 
-FROM golang:1.25.4-trixie AS server_build
+FROM golang:1.26.4-trixie AS server_build
 
 COPY server /build
 WORKDIR /build
