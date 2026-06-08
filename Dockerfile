@@ -1,4 +1,4 @@
-FROM node:25.1-trixie-slim AS web_build
+FROM node:25.9-trixie-slim AS web_build
 
 COPY web /web
 WORKDIR /web
