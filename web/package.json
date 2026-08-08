@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "bundle": "npx webpack",
-    "watch": "npx webpack watch"
+    "watch": "npx webpack watch",
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
     "webpack": "^5.102.1",
     "webpack-cli": "^7.0.0"
   },

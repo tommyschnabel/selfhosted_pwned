@@ -11,6 +11,10 @@ import (
 	"time"
 )
 
+// pwnedRangeURL is a variable so tests can point it at a local server instead
+// of the real k-anonymity endpoint.
+var pwnedRangeURL = "https://api.pwnedpasswords.com/range/%s"
+
 func main() {
 	// Parse command-line argument
 	password := flag.String("p", "", "Password to check (required)")
@@ -62,7 +66,7 @@ func hashPassword(pwd string) string {
 // checkHashInPwned checks if the full hash (with suffix) exists in the PwnedPasswords range endpoint
 func checkHashInPwned(prefix, fullHash string) (int, error) {
 	// PwnedPasswords range endpoint
-	url := fmt.Sprintf("https://api.pwnedpasswords.com/range/%s", prefix)
+	url := fmt.Sprintf(pwnedRangeURL, prefix)
 
 	// Make HTTP GET request
 	client := &http.Client{Timeout: 10 * time.Second}
